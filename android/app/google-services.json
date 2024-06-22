@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "543208810237",
+    "project_id": "takoett",
+    "storage_bucket": "takoett.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543208810237:android:4f0cb10518cdc231bc0094",
+        "android_client_info": {
+          "package_name": "com.example.takoett"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATdVZVf0ik9CMHiAb22Bg5bkz8oAM0jOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
