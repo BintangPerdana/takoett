@@ -21,7 +21,11 @@ class TakoettServices {
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
     };
-    await _takoettCollection.add({newPost});
+    try {
+      await _takoettCollection.add(newPost);
+    } catch (e) {
+      print(e);
+    }
   }
 
   // Tampil data
@@ -51,7 +55,11 @@ class TakoettServices {
       'image': takoett.image,
       'updatedAt': FieldValue.serverTimestamp(),
     };
-    await _takoettCollection.doc(takoett.id).update(updatedPost);
+    try {
+      await _takoettCollection.doc(takoett.id).update(updatedPost);
+    } catch (e) {
+      print(e);
+    }
   }
 
   //hapus data

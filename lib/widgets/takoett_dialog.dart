@@ -28,7 +28,7 @@ class _TambahPostState extends State<TambahPost> {
 
   Future<void> _pickImage() async {
     final XFile? pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       setState(() {
         _imageFile = pickedFile;
