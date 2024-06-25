@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:takoett/models/takoett.dart';
+import 'package:takoett/screens/detail_screen.dart';
 import 'package:takoett/screens/favourite_screen.dart';
 import 'package:takoett/screens/user/login.dart';
 import 'package:takoett/services/takoett_services.dart';
@@ -99,11 +100,11 @@ class PostList extends StatelessWidget {
             return Card(
               child: InkWell(
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return TambahPost(takoett: document);
-                    },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(takoett: document),
+                    ),
                   );
                 },
                 child: Column(
