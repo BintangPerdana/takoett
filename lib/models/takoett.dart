@@ -17,7 +17,7 @@ class Takoett {
     this.updatedAt,
   });
 
-  factory Takoett.fromDocument(DocumentSnapshot doc) {
+  factory Takoett.fromMap(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return Takoett(
       id: doc.id,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:takoett/models/takoett.dart';
+import 'package:takoett/screens/favourite_screen.dart';
 import 'package:takoett/screens/user/login.dart';
 import 'package:takoett/services/takoett_services.dart';
 import 'package:takoett/widgets/takoett_dialog.dart';
+import 'package:takoett/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,13 +15,47 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Takoett'),
       ),
-      body: PostList(),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: const [
+          PostList(),
+          FavoriteScreen(),
+          ProfileScreen(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorite',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -72,22 +108,6 @@ class PostList extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    document.image != null &&
-                            Uri.parse(document.image!).isAbsolute
-                        ? ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
-                            ),
-                            child: Image.network(
-                              document.image!,
-                              fit: BoxFit.cover,
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              height: 150,
-                            ),
-                          )
-                        : Container(),
                     ListTile(
                       title: Text(document.title),
                       subtitle: Text(document.description),
