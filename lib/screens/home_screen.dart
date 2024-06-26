@@ -100,7 +100,31 @@ class PostList extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text(document.title),
-                        subtitle: Text(document.description),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(document.description),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(
+                                5,
+                                (index) {
+                                  return Image.asset(
+                                    index < document.rating
+                                        ? 'images/icon/skull_selected.png'
+                                        : 'images/icon/skull.png',
+                                    color: index < document.rating
+                                        ? Colors.red
+                                        : Colors
+                                            .grey, // Optional: Adjust color if needed
+                                    width: 24, // Adjust the size as needed
+                                    height: 24, // Adjust the size as needed
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                         trailing: InkWell(
                           onTap: () {
                             showDialog(

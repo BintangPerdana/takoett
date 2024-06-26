@@ -15,6 +15,7 @@ class TambahPost extends StatefulWidget {
 class _TambahPostState extends State<TambahPost> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  double _rating = 0;
   XFile? _imageFile;
 
   @override
@@ -60,6 +61,33 @@ class _TambahPostState extends State<TambahPost> {
           ),
           const Padding(
             padding: EdgeInsets.only(top: 20),
+            child: Text('Rating : '),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(5, (index) {
+              return IconButton(
+                icon: Image.asset(
+                  index < _rating
+                      ? 'images/icon/skull_selected.png'
+                      : 'images/icon/skull.png',
+                  color: index < _rating
+                      ? Colors.red
+                      : Colors.grey, // Optional: Adjust color if needed
+                  width: 24, // Adjust the size as needed
+                  height: 24, // Adjust the size as needed
+                ),
+                onPressed: () {
+                  setState(() {
+                    _rating = index + 1;
+                  });
+                },
+              );
+            }),
+          ),
+          Text('Current Rating: $_rating'),
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
             child: Text('Image: '),
           ),
           Expanded(
@@ -100,10 +128,11 @@ class _TambahPostState extends State<TambahPost> {
               title: _titleController.text,
               description: _descriptionController.text,
               image: image,
+              rating: _rating,
               createdAt: widget.takoett?.createdAt,
             );
             if (widget.takoett == null) {
-              TakoettServices.addNote(takoett)
+              TakoettServices.addPost(takoett)
                   .whenComplete(() => Navigator.of(context).pop());
             } else {
               TakoettServices.updateNote(takoett)

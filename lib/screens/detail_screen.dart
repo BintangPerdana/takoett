@@ -90,6 +90,25 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 8),
+                  // add rating icon
+                  Row(
+                    children: List.generate(
+                      5,
+                      (index) {
+                        return Image.asset(
+                          index < widget.takoett.rating
+                              ? 'images/icon/skull_selected.png'
+                              : 'images/icon/skull.png',
+                          color: index < widget.takoett.rating
+                              ? Colors.red
+                              : Colors.grey, // Optional: Adjust color if needed
+                          width: 24, // Adjust the size as needed
+                          height: 24, // Adjust the size as needed
+                        );
+                      },
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(

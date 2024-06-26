@@ -13,11 +13,12 @@ class TakoettServices {
   static final FirebaseStorage _storage = FirebaseStorage.instance;
 
   // Tambah data
-  static Future<void> addNote(Takoett takoett) async {
+  static Future<void> addPost(Takoett takoett) async {
     Map<String, dynamic> newPost = {
       'title': takoett.title,
       'description': takoett.description,
       'image': takoett.image,
+      'rating': takoett.rating,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
     };
@@ -38,6 +39,7 @@ class TakoettServices {
           title: data['title'],
           description: data['description'],
           image: data['image'],
+          rating: data['rating'] ?? 0.0,
           createdAt:
               data['createdAt'] != null ? data['createdAt'] as Timestamp : null,
           updatedAt:
@@ -53,6 +55,7 @@ class TakoettServices {
       'title': takoett.title,
       'description': takoett.description,
       'image': takoett.image,
+      'rating': takoett.rating,
       'updatedAt': FieldValue.serverTimestamp(),
     };
     try {

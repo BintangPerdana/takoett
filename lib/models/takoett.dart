@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Takoett {
@@ -5,6 +7,7 @@ class Takoett {
   final String title;
   final String description;
   String? image;
+  double rating;
   Timestamp? createdAt;
   Timestamp? updatedAt;
 
@@ -13,6 +16,7 @@ class Takoett {
     required this.title,
     required this.description,
     required this.image,
+    required this.rating,
     this.createdAt,
     this.updatedAt,
   });
@@ -24,6 +28,7 @@ class Takoett {
       title: data['title'],
       description: data['description'],
       image: data['image'],
+      rating: data['rating'],
       createdAt: data['createdAt'] as Timestamp,
       updatedAt: data['updatedAt'] as Timestamp,
     );
@@ -34,6 +39,7 @@ class Takoett {
       'title': title,
       'description': description,
       'image': image,
+      'rating': rating,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
