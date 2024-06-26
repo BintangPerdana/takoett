@@ -28,7 +28,7 @@ class Takoett {
       title: data['title'],
       description: data['description'],
       image: data['image'],
-      rating: data['rating'],
+      rating: data['rating'] ?? 0.0,
       createdAt: data['createdAt'] as Timestamp,
       updatedAt: data['updatedAt'] as Timestamp,
     );
