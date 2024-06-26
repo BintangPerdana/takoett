@@ -1,32 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:takoett/models/takoett.dart';
-import 'package:takoett/models/favourite.dart';
 import 'package:takoett/services/favourite_services.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final Takoett takoett;
 
-  const DetailScreen({Key? key, required this.takoett}) : super(key: key);
+  const DetailScreen({super.key, required this.takoett});
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool _isFavorited = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFavorite();
+  }
+
+  void _checkFavorite() async {
+    final isFavorited = await FavoriteService.isFavorite(widget.takoett);
+    setState(() {
+      _isFavorited = isFavorited;
+    });
+  }
+
+  void _toggleFavorite() async {
+    if (_isFavorited) {
+      await FavoriteService.removeFavorite(widget.takoett);
+    } else {
+      await FavoriteService.addFavorite(widget.takoett);
+    }
+    setState(() {
+      _isFavorited = !_isFavorited;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(takoett.title, style: TextStyle(color: Colors.black)),
+        title: Text(widget.takoett.title,
+            style: const TextStyle(color: Colors.black)),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (takoett.image != null)
+            if (widget.takoett.image != null)
               Image.network(
-                takoett.image!,
+                widget.takoett.image!,
                 width: double.infinity,
                 height: 300,
                 fit: BoxFit.cover,
@@ -40,17 +71,21 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          takoett.title,
-                          style: TextStyle(
+                          widget.takoett.title,
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.favorite_border, color: Colors.blue),
+                        icon: Icon(
+                          _isFavorited ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.red,
+                        ),
                         onPressed: () {
                           // Handle favorite action
+                          _toggleFavorite();
                         },
                       ),
                     ],
@@ -58,26 +93,27 @@ class DetailScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      takoett.description,
-                      style: TextStyle(fontSize: 16),
+                      widget.takoett.description,
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
-                  Divider(),
-                  Text(
+                  const Divider(),
+                  const Text(
                     "Reply",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   ListTile(
-                    leading: CircleAvatar(
+                    leading: const CircleAvatar(
                       child: Icon(Icons.person),
                     ),
-                    title: Text("Username"),
-                    subtitle: Text("Description. Lorem ipsum dolor sit amet"),
+                    title: const Text("Username"),
+                    subtitle:
+                        const Text("Description. Lorem ipsum dolor sit amet"),
                     trailing: TextButton(
                       onPressed: () {
                         // Handle reply action
                       },
-                      child: Text("reply"),
+                      child: const Text("reply"),
                     ),
                   ),
                 ],
@@ -90,8 +126,8 @@ class DetailScreen extends StatelessWidget {
         onPressed: () {
           // Handle Add message action
         },
-        child: Icon(Icons.message),
         backgroundColor: Colors.blue,
+        child: const Icon(Icons.message),
       ),
     );
   }

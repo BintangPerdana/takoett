@@ -12,6 +12,22 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _darkMode = false;
+  String username = "Username";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsername(); // Fetch the username when the widget is initialized
+  }
+
+  void _fetchUsername() {
+    final User? user = _auth.currentUser;
+    final String displayName = user?.displayName ??
+        "Username not set"; // Use a default value if displayName is null
+    setState(() {
+      username = displayName; // Step 2: Fetch the username
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 20),
           Center(
             child: Text(
-              'Username',
+              username,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),

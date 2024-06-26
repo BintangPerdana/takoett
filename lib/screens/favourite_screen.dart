@@ -53,27 +53,35 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               child: Text('No favorites added yet.'),
             );
           }
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final takoett = snapshot.data![index];
-              return Card(
-                child: ListTile(
-                  leading: Image.network(
-                    takoett.image ?? '',
-                    fit: BoxFit.cover,
-                    width: 50,
-                    height: 50,
-                  ),
-                  title: Text(takoett.title),
-                  subtitle: Text(takoett.description),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.favorite, color: Colors.red),
-                    onPressed: () => _removeFavorite(takoett),
-                  ),
-                ),
-              );
+          return RefreshIndicator(
+            onRefresh: () {
+              setState(() {
+                _loadFavorites();
+              });
+              return _favoritesFuture;
             },
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final takoett = snapshot.data![index];
+                return Card(
+                  child: ListTile(
+                    leading: Image.network(
+                      takoett.image ?? '',
+                      fit: BoxFit.cover,
+                      width: 50,
+                      height: 50,
+                    ),
+                    title: Text(takoett.title),
+                    subtitle: Text(takoett.description),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.favorite, color: Colors.red),
+                      onPressed: () => _removeFavorite(takoett),
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
