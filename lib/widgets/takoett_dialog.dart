@@ -1,7 +1,9 @@
 import 'dart:io' as io;
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:takoett/models/takoett.dart';
+import 'package:takoett/services/location_services.dart';
 import 'package:takoett/services/takoett_services.dart';
 
 class TambahPost extends StatefulWidget {
@@ -17,6 +19,8 @@ class _TambahPostState extends State<TambahPost> {
   final TextEditingController _descriptionController = TextEditingController();
   double _rating = 0;
   XFile? _imageFile;
+  Position? _position;
+
 
   @override
   void initState() {
@@ -35,6 +39,13 @@ class _TambahPostState extends State<TambahPost> {
         _imageFile = pickedFile;
       });
     }
+  }
+
+  Future<void> _getLocation() async {
+    final location = await LocationService().getCurrentLocation();
+    setState(() {
+      _position = location;
+    });
   }
 
   @override
@@ -103,6 +114,16 @@ class _TambahPostState extends State<TambahPost> {
             onPressed: _pickImage,
             child: const Text('Pick Image'),
           ),
+          TextButton(
+            onPressed: _getLocation,
+            child: const Text("Get Location"),
+          ),
+          Text(
+            _position?.latitude != null && _position?.longitude != null
+                ? 'Current Position : ${_position!.latitude.toString()}, ${_position!.longitude.toString()}'
+                : 'Current Position : ${widget.takoett?.lat}, ${widget.takoett?.lng}',
+            textAlign: TextAlign.start,
+          )
         ],
       ),
       actions: [
