@@ -19,6 +19,8 @@ class TakoettServices {
       'description': takoett.description,
       'image': takoett.image,
       'rating': takoett.rating,
+      'lat': takoett.lat,
+      'lng': takoett.lng,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
     };
@@ -58,6 +60,8 @@ class TakoettServices {
       'description': takoett.description,
       'image': takoett.image,
       'rating': takoett.rating,
+      'lat': takoett.lat,
+      'lng': takoett.lng,
       'updatedAt': FieldValue.serverTimestamp(),
     };
     try {

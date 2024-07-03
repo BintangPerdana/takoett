@@ -77,6 +77,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        
                       ),
                       IconButton(
                         icon: Icon(
@@ -113,6 +114,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       widget.takoett.description,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      widget.takoett.lat.toString(),
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
