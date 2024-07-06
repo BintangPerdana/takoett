@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:takoett/models/takoett.dart';
+import 'package:takoett/screens/google_maps_screen.dart';
 import 'package:takoett/services/favourite_services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
   final Takoett takoett;
@@ -117,13 +119,37 @@ class _DetailScreenState extends State<DetailScreen> {
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      widget.takoett.lat.toString(),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
+                  Row(
+                          children: [
+                            widget.takoett.lat != null && widget.takoett.lng != null
+                                ? InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              GoogleMapsScreen(
+                                            widget.takoett.lat,
+                                            widget.takoett.lng,
+                                          ),
+                                        ),
+                                      );
+                                      //openMap(document.lat, document.lng);
+                                    },
+                                    child: const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      child: Icon(Icons.map),
+                                    ),
+                                  )
+                                : const Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Icon(
+                                      Icons.map,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                          ],),
                   const Divider(),
                   const Text(
                     "Reply",
@@ -159,3 +185,11 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 }
+
+  Future<void> openMap(String? lat, String? lng) async {
+    Uri uri =
+        Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat, $lng");
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $uri');
+    }
+  }

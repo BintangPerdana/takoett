@@ -21,7 +21,6 @@ class _TambahPostState extends State<TambahPost> {
   XFile? _imageFile;
   Position? _position;
 
-
   @override
   void initState() {
     super.initState();
@@ -150,6 +149,13 @@ class _TambahPostState extends State<TambahPost> {
               description: _descriptionController.text,
               image: image,
               rating: _rating,
+              lat: widget.takoett?.lat.toString() != _position!.latitude.toString()
+                  ? _position!.latitude.toString()
+                  : widget.takoett?.lat.toString(),
+              lng:
+                  widget.takoett?.lng.toString() != _position!.longitude.toString()
+                      ? _position!.longitude.toString()
+                      : widget.takoett?.lng.toString(),
               createdAt: widget.takoett?.createdAt,
             );
             if (widget.takoett == null) {
