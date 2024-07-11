@@ -8,6 +8,8 @@ class Takoett {
   final String description;
   String? image;
   double rating;
+  String? lat;
+  String? lng;
   Timestamp? createdAt;
   Timestamp? updatedAt;
 
@@ -17,6 +19,8 @@ class Takoett {
     required this.description,
     required this.image,
     required this.rating,
+    this.lat,
+    this.lng,
     this.createdAt,
     this.updatedAt,
   });
@@ -29,6 +33,8 @@ class Takoett {
       description: data['description'],
       image: data['image'],
       rating: data['rating'] ?? 0.0,
+      lat: data['lat'],
+      lng: data['lng'],
       createdAt: data['createdAt'] as Timestamp,
       updatedAt: data['updatedAt'] as Timestamp,
     );
@@ -40,6 +46,8 @@ class Takoett {
       'description': description,
       'image': image,
       'rating': rating,
+      'lat': lat,
+      'lng': lng,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
