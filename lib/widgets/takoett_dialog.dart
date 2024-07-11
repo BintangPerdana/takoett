@@ -71,7 +71,7 @@ class _TambahPostState extends State<TambahPost> {
           ),
           const Padding(
             padding: EdgeInsets.only(top: 20),
-            child: Text('Rating : '),
+            child: Text('Tingkat Seram : '),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -149,13 +149,14 @@ class _TambahPostState extends State<TambahPost> {
               description: _descriptionController.text,
               image: image,
               rating: _rating,
-              lat: widget.takoett?.lat.toString() != _position!.latitude.toString()
+              lat: widget.takoett?.lat.toString() !=
+                      _position!.latitude.toString()
                   ? _position!.latitude.toString()
                   : widget.takoett?.lat.toString(),
-              lng:
-                  widget.takoett?.lng.toString() != _position!.longitude.toString()
-                      ? _position!.longitude.toString()
-                      : widget.takoett?.lng.toString(),
+              lng: widget.takoett?.lng.toString() !=
+                      _position!.longitude.toString()
+                  ? _position!.longitude.toString()
+                  : widget.takoett?.lng.toString(),
               createdAt: widget.takoett?.createdAt,
             );
             if (widget.takoett == null) {

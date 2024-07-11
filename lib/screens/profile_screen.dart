@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: <Widget>[
-          Center(
+          const Center(
             child: CircleAvatar(
               radius: 40,
               backgroundColor: Colors.blueGrey,
@@ -59,11 +59,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Center(
             child: Text(
               username,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 20),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Bio',
               border: OutlineInputBorder(),
