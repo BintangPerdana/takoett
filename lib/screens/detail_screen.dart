@@ -119,6 +119,18 @@ class _DetailScreenState extends State<DetailScreen> {
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Text("Lat: ${widget.takoett.lat}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Text("Lng: ${widget.takoett.lng}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
                   Row(
                           children: [
                             widget.takoett.lat != null && widget.takoett.lng != null
