@@ -41,15 +41,6 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ]),
-        // RichAttributionWidget(
-        //   attributions: [
-        //     TextSourceAttribution(
-        //       'OpenStreetMap contributors',
-        //       onTap: () =>
-        //           launchUrl(Uri.parse('https://openstreetmap.org/copyright')),
-        //     ),
-        //   ],
-        // ),
       ],
     );
   }
