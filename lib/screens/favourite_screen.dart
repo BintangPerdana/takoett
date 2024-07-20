@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takoett/models/takoett.dart';
+import 'package:takoett/screens/detail_screen.dart';
 import 'package:takoett/services/favourite_services.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -32,9 +33,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Takoett'),
-      ),
       body: FutureBuilder<List<Takoett>>(
         future: _favoritesFuture,
         builder: (context, snapshot) {
@@ -78,6 +76,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       icon: const Icon(Icons.favorite, color: Colors.red),
                       onPressed: () => _removeFavorite(takoett),
                     ),
+                    onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(takoett: takoett),
+                ),
+              );
+            },
                   ),
                 );
               },
